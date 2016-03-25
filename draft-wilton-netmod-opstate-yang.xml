@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <!-- This template is for creating an Internet Draft using xml2rfc,
-     which is available here: http://xml.resource.org. -->
+which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!-- One method to get references from the online citation libraries.
-     There has to be one entity for each item to be referenced. 
-     An alternate method (rfc include) is described in the references. --><!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!--<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">--><!--<!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">--><!ENTITY RFC6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
+There has to be one entity for each item to be referenced.
+An alternate method (rfc include) is described in the references. -->
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!--<!ENTITY RFC2629 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2629.xml">-->
+<!--<!ENTITY RFC3552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3552.xml">-->
+<!ENTITY RFC6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
 <!ENTITY RFC6242 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml">
 <!ENTITY RFC6243 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6243.xml">
 <!ENTITY RFC6536 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6536.xml">
@@ -15,9 +18,9 @@
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs), 
-     please see http://xml.resource.org/authoring/README.html. -->
+please see http://xml.resource.org/authoring/README.html. -->
 <!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
-     (Here they are set differently than their defaults in xml2rfc v1.32) -->
+(Here they are set differently than their defaults in xml2rfc v1.32) -->
 <?rfc strict="yes" ?>
 <!-- give errors regarding ID-nits and DTD validation -->
 <!-- control the table of contents (ToC) -->
@@ -31,103 +34,774 @@
 <?rfc sortrefs="yes" ?>
 <!-- sort the reference entries alphabetically -->
 <!-- control vertical white space 
-     (using these PIs as follows is recommended by the RFC Editor) -->
+(using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="exp" docName="draft-wilton-netmod-opstate-yang-02" ipr="trust200902"><!-- category values: std, bcp, info, exp, and historic
-     ipr values: full3667, noModification3667, noDerivatives3667
-     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
-     they will automatically be output with "(if approved)" --><!-- ***** FRONT MATTER ***** --><front><!-- The abbreviated title is used in the page header - it is only necessary if the 
-         full title is longer than 39 characters --><title abbrev="With-config-state">"With-config-state" Capability for NETCONF/RESTCONF</title><!-- add 'role="editor"' below for the editors if appropriate --><!-- Another author who claims to be an editor --><author fullname="Robert Wilton" initials="R.G." surname="Wilton"><organization>Cisco Systems</organization><address><email>rwilton@cisco.com</email><!-- uri and facsimile elements may also be added --></address></author><date month="December" year="2015"/><!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
+<rfc category="exp" docName="draft-wilton-netmod-opstate-yang-03" ipr="trust200902">
+  <!-- category values: std, bcp, info, exp, and historic
+       ipr values: full3667, noModification3667, noDerivatives3667
+       you can add the attributes updates="NNNN" and obsoletes="NNNN"
+       they will automatically be output with "(if approved)" -->
+  <!-- ***** FRONT MATTER ***** -->
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the
+         full title is longer than 39 characters -->
+    <title abbrev="With-config-state">"With-config-state" Capability for NETCONF/RESTCONF</title>
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+    <!-- Another author who claims to be an editor -->
+    <author fullname="Robert Wilton" initials="R.G." surname="Wilton">
+      <organization>Cisco Systems</organization>
+      <address>
+        <email>rwilton@cisco.com</email>
+        <!-- uri and facsimile elements may also be added -->
+      </address>
+    </author>
+    <author fullname="Christian Hopps" initials="C.E.H" surname="Hopps">
+      <organization>Deutsche Telekom</organization>
+      <address>
+        <email>chopps@chopps.org</email>
+        <!-- uri and facsimile elements may also be added -->
+      </address>
+    </author>
+    <date/>
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
          in the current day for you. If only the current year is specified, xml2rfc will fill 
 	 in the current day and month for you. If the year is not the current one, it is 
 	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
 	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
-	 specify just the year. --><!-- Meta-data Declarations --><area>General</area><workgroup>Internet Engineering Task Force</workgroup><!-- WG name at the upperleft corner of the doc,
+         specify just the year. -->
+    <!-- Meta-data Declarations -->
+    <area>General</area>
+    <workgroup>Internet Engineering Task Force</workgroup>
+    <!-- WG name at the upperleft corner of the doc,
          IETF is fine for individual submissions.  
 	 If this element is not present, the default is "Network Working Group",
-         which is used by the RFC Editor as a nod to the history of the IETF. --><keyword>template</keyword><!-- Keywords will be incorporated into HTML output
+         which is used by the RFC Editor as a nod to the history of the IETF. -->
+    <keyword>template</keyword>
+    <!-- Keywords will be incorporated into HTML output
          files in a meta tag but they have no effect on text or nroff
          output. If you submit your draft to the RFC Editor, the
-         keywords will be used for the search engine. --><abstract><t>
-      This document proposes a possible alternative solution for handling applied configuration state in YANG as described in draft-openconfig-netmod-opstate-01.  The proposed solution, roughly modelled on the with-defaults NETCONF/RESTCONF capability, aims to meet the key requirements set out in draft-ietf-netmod-opstate-reqs-01 without the need for YANG module authors to explicitly duplicate configuration nodes in both configuration and operational containers. This draft does not address the issue of co-location of configuration and operational state for interfaces, nor does it provide a NETCONF mechanism to retrieve operational data separately from configuration data.
-      </t></abstract></front><middle><section title="Introduction"><t>The <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref> sets out a number of operational requirements and proposed solutions for handling intended and applied config state when using YANG models. This document sets out a possible alternative solution for some of those requirements. </t><t>The solution proposed in this document does not require any changes to any existing YANG modules to support intended and applied config state. In particular: the proposed solution does not require the data models to be explicitly modelled with separate configuration and operational containers, and it does not require that all configuration and operational state nodes and leaves to be defined as groupings.</t><t>Nor does the proposed solution make explicit use of separate datastores to model intended configuration separately from applied configuration.</t><t>Instead, the solution proposed here is a method for generating an enhanced schema based on any YANG model that is optionally used by network management protocols. This enhanced schema includes up to four data leaves for each configuration node defined in the YANG model. These cover both the intended and applied values, along with an additional reason code and message if the applied configuration does not match the intended configuration.</t><!--       allows configuration nodes to be returned using a different format such that both the intended and applied values may be returned, along with an additional reason code and message if the applied value does not match the intended configuration.</t>--><t>Although the solution described here is only defined in the context of NETCONF and RESTCONF, it should be possible to extend the same YANG config data encoding mechanism to other protocol schemes used to access YANG data if required.</t><!--      <section title="Requirements Language">
+         keywords will be used for the search engine. -->
+    <abstract>
+      <t>
+        This document proposes a possible alternative solution for
+        handling applied configuration state in YANG as described in
+        draft-openconfig-netmod-opstate-01. The proposed solution,
+        roughly modelled on the with-defaults NETCONF/RESTCONF
+        capability, aims to meet the key requirements set out in
+        draft-ietf-netmod-opstate-reqs-01 without the need for YANG
+        module authors to explicitly duplicate configuration nodes in
+        both configuration and operational containers. This draft does
+        not address the issue of co-location of configuration and
+        operational state for interfaces, nor does it provide a NETCONF
+        mechanism to retrieve operational data separately from
+        configuration data.
+      </t>
+    </abstract>
+  </front>
+  <middle>
+    <section title="Introduction">
+      <t>
+        The <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD
+        Operational State Requirements</xref> sets out a number of
+        operational requirements and proposed solutions for handling
+        intended and applied config state when using YANG models. This
+        document sets out a possible alternative solution for some of
+        those requirements.
+      </t>
+      <t>
+        The solution proposed in this document does not require any
+        changes to any existing YANG modules to support intended and
+        applied config state. In particular: the proposed solution does
+        not require the data models to be explicitly modelled with
+        separate configuration and operational containers, and it does
+        not require that all configuration and operational state nodes
+        and leaves to be defined as groupings.
+      </t>
+      <t>
+        Nor does the proposed solution make explicit use of separate
+        datastores to model intended configuration separately from
+        applied configuration.
+      </t>
+      <t>
+        Instead, the solution proposed here is a method for generating
+        an enhanced schema based on any YANG model that is optionally
+        used by network management protocols. This enhanced schema
+        includes up to four data leaves for each configuration node
+        defined in the YANG model. These cover both the intended and
+        applied values, along with an additional reason code and message
+        if the applied configuration does not match the intended
+        configuration.
+      </t>
+      <!-- allows configuration nodes to be returned using a different
+           format such that both the intended and applied values may be
+           returned, along with an additional reason code and message if
+           the applied value does not match the intended configuration.
+           </t>-->
+      <t>
+        Although the solution described here is only defined in the
+        context of NETCONF and RESTCONF, it should be possible to extend
+        the same YANG config data encoding mechanism to other protocol
+        schemes used to access YANG data if required.
+      </t>
+      <!-- <section title="Requirements Language"> </section>-->
+      <section title="Change history">
+        <t>
+          The changes from draft version 00 to 01 is to fix a couple of
+          mistakes in the example YANG module.
+        </t>
+        <t>
+          The changes from draft version 01 to 02 primarily updates
+          <xref target="AddressingRequirements"/> to reflect the
+          refinements to the requirements specification. In addition an
+          overview of a YANG Metadata based variant of the original
+          solution is described in <xref target="AlternativeSolution"/>.
+        </t>
+      </section>
+      <section title="Terminology">
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+          NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+          "OPTIONAL" in this document are to be interpreted as described
+          in <xref target="RFC2119">RFC 2119</xref>.
+        </t>
+        <t>
+          The terms 'intended configuration', 'applied configuration'
+          and 'derived state' are defined in <xref
+          target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State
+          Requirements</xref>.
+        </t>
+        <t>
+          The following additional terms are used in this document:
+        </t>
+        <t>
+          <list>
+            <t>
+              operational nodes - this term is colloquially used in this
+              draft to refer to "config false" YANG nodes.
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+    <section title="Objectives">
+      <t>
+        The aim of this draft is to provide a partial alternative
+        solution to the requirements set out in <xref
+        target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State
+        Requirements</xref>. An explanation of how the specific
+        requirements are addressed is described in <xref
+        target="AddressingRequirements"/>.
+      </t>
+    </section>
+    <section anchor="Encoding" title="&quot;With-config-state&quot; encoding scheme">
+      <t>
+        The solution proposed in this document makes use of a new
+        encoding scheme that is used to represent YANG configuration
+        nodes in NETCONF and RESTCONF. An optional parameter, called
+        &lt;with-config-state&gt; and defined below, indicates when this
+        new encoding scheme is used.
+      </t>
+      <t>
+        When the with-config-state option is used each YANG
+        configuration leaf in the datastore is returned in a different
+        format. Rather than being encoded as an XML or JSON leaf element
+        that holds the configured value, it is instead returned as a
+        node element, with the same name as the YANG config leaf, that
+        contains up to four separate leaf elements. The four leaf
+        elements that the node may contain are 'cfg-intended',
+        'cfg-applied', 'cfg-status', and 'cfg-status-reason'. Theses
+        leaves are externally addressable through using the full path of
+        the leaf, providing explicit distinct paths for intended
+        configuration vs applied configuration. These elements are
+        described in more detail in the following sub-sections. Concrete
+        examples of the encoding for NETCONF and RESTCONF requests are
+        given in <xref target="EncodingExamples"/>.
+      </t>
+      <section title="cfg-intended">
+        <t>
+          The cfg-intended leaf represents the intended configuration of
+          the device, and is of the same datatype and holds the same
+          value as the normal YANG data model configuration leaf. The
+          cfg-intended leaf is only present if the associated
+          configuration node exists in the YANG data model.
+        </t>
+        <t>
+          The cfg-intended leaf is semantically equivalent to the config
+          leaf in the YANG data model that is based on, and hence is
+          logically read/writable. In particular, when the
+          &lt;with-config-state&gt; parameter is used, management
+          requests to modify the configuration may also use the full
+          path to the cfg-intended leaf. The server semantics for
+          writing to the cfg-intended leaf are exactly the same as for
+          writing to the standard YANG config node path - the
+          flexibility is provided as a convenience to the NMS client.
+        </t>
+      </section>
+      <section title="cfg-applied">
+        <t>
+          The cfg-applied leaf represents the applied configuration, and
+          is of the same datatype as a normal YANG data model
+          configuration leaf. If there is no configuration currently in
+          effect then the cfg-applied leaf is not present.
+        </t>
+        <t>
+          The cfg-applied leaf is read only.
+        </t>
+        <t>
+          To give some examples:
+          <list>
+            <t>
+              If the configuration has been successfully applied then
+              the cfg-applied leaf would exactly match the cfg-intended
+              leaf.
+            </t>
+            <t>
+              If a new item of configuration is in the process of being
+              applied then the cfg-intended leaf holds the intended
+              configuration value, and the cfg-applied leaf would not be
+              present until the configuration is in effect.
+            </t>
+            <t>
+              If an existing item of configuration is in the process of
+              being deleted then the cfg-applied leaf would hold the
+              current configuration value, and the cfg-intended leaf
+              would not be present. Once the delete operation has
+              completed, the configuration node element itself would
+              logically be deleted.
+            </t>
+            <t>
+              If the configuration value of an existing item of
+              configuration is in the process of being changed, then the
+              cfg-intended leaf would hold the new proposed value, and
+              the cfg-applied leaf would hold the existing value that is
+              currently in effect.
+            </t>
+          </list>
+        </t>
+      </section>
+      <section title="cfg-status">
+        <t>
+          The cfg-status leaf is used, when required, to indicate why
+          the value of the cfg-applied leaf does not match the value of
+          the cfg-intended leaf. It is only present when the values of
+          the cfg-intended and cfg-applied leaves do not match.
+        </t>
+        <t>
+          The cfg-status leaf is read only.
+        </t>
+        <t>
+          The cfg-status leaf can take one of following values:
+          <list>
+            <t>
+              in-progress - the config operation is in the process of
+              being applied.
+            </t>
+            <t>
+              waiting - the config operation is waiting for other
+              configuration to be applied or hardware to be available
+              before it can be applied. Additional specific information
+              may be provided in the cfg-status-reason leaf.
+            </t>
+            <t>
+              failed - the config operation failed to be applied.
+              Additional information may be provided in the
+              cfg-status-reason leaf to indicate the reason for the
+              failure.
+            </t>
+          </list>
+        </t>
+      </section>
+      <section title="cfg-status-reason">
+        <t>
+          The cfg-status-reason leaf may be used to provide additional
+          information as to why the value of the cfg-applied leaf does
+          not match the value of the cfg-intended leaf.
+        </t>
+        <t>
+          The cfg-status-reason leaf may only be present in the case
+          that the cfg-status leaf is present and is set to either
+          waiting or failed.
+        </t>
+        <t>
+          The cfg-status-reason leaf is read only.
+        </t>
+      </section>
+      <section title="Non-leaf config nodes">
+        <t>
+          Non-leaf config nodes require some special handling. In
+          particular, containers with presence and list elements must be
+          considered.
+        </t>
+        <t>
+          The proposed solution for both types of node is the same. The
+          cfg-intended, cfg-applied, cfg-status, and cfg-status-reason
+          leaf nodes are implicitly added as direct descendants of the
+          presence-container or list element.
+        </t>
+        <t>
+          Note: There is an open issue that using these leaves directly
+          opens up a potential naming clash between the "cfg-*" names
+          above and existing explicitly defined child nodes in the YANG
+          module definition. There are a few possible ways that this
+          might be addressed:
+          <list>
+            <t>
+              Making the four "cfg-*" leaves reserved names. I.e. to
+              ensure that they are not used in general YANG modules.
+            </t>
+            <t>
+              By inserting an implicit node between all child nodes
+              under the container or list element. This would
+              automatically ensure that there can be no naming clash
+              between the defined YANG nodes and the implicitly added
+              "cfg-*" leaves.
+            </t>
+            <t>
+              By using a reserved namespace for the "cfg-*" leaves to
+              ensure that they cannot clash with any explicitly defined
+              in the YANG module.
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+    <section anchor="Parameter" title="Retrieval of intended and applied configuration">
+      <t>
+        To make use of the new encoding scheme defined above, this
+        document defines a new parameter, called
+        &lt;with-config-state&gt;, which can be added to specific
+        NETCONF operation request messages, or as a RESTCONF query
+        parameter, to control how retrieval of configuration nodes is
+        treated by the server.
+      </t>
+      <t>
+        The &lt;with-config-state&gt; parameter is supported for the
+        following NETCONF operations: &lt;get&gt;, &lt;get-config&gt;,
+        &lt;edit-config&gt;, &lt;delete-config&gt;.
+      </t>
+      <t>
+        The &lt;with-config-state&gt; query parameter is supported for
+        the following RESTCONF operations: GET, PUT, POST, PATCH,
+        DELETE.
+      </t>
+      <t>
+        Use of the &lt;with-config-state&gt; parameter ensures that all
+        config nodes are always returned using the defined encoding. It
+        also allows servers to explicitly reference the cfg-* leaves in
+        requests and updates.
+      </t>
+      <t>
+        A server that implements this specification MUST accept the
+        &lt;with-config-state&gt; parameter containing the enumeration
+        for any of the with-config-state modes it supports. The
+        &lt;with-config-state&gt; parameter contains one of the four
+        enumerated values defined in this section.
+      </t>
+      <section title="all-cfg">
+        <t>
+          When data is retrieved with a &lt;with-config-state&gt;
+          parameter equal to 'all-cfg', all 'cfg-*' nodes are reported
+          using the encoding scheme defined in <xref
+          target="Encoding"/>.
+        </t>
+      </section>
+      <section title="intended-cfg-only">
+        <t>
+          When data is retrieved with a &lt;with-config-state&gt;
+          parameter equal to 'intended-cfg', only the 'cfg-intended'
+          leaves are reported using the encoding scheme defined in <xref
+          target="Encoding"/>. All other 'cfg-*' leaves are omitted.
+        </t>
+      </section>
+      <section title="applied-cfg-only">
+        <t>
+          When data is retrieved with a &lt;with-config-state&gt;
+          parameter equal to 'applied-cfg-only', only the 'cfg-applied'
+          leaves are reported using the encoding scheme defined in <xref
+          target="Encoding"/>. All other 'cfg-*' leaves are omitted.
+        </t>
+      </section>
+      <section title="diff-cfg-only">
+        <t>
+          When data is retrieved with a &lt;with-config-state&gt;
+          parameter equal to 'diff-cfg-only', config nodes are only
+          returned if the value of the cfg-intended leaf does not match
+          the value of the cfg-applied leaf. If the config node is
+          returned then all appropriate 'cfg-*' leaves are returned as
+          per the encoding scheme defined in <xref target="Encoding"/>.
+        </t>
+      </section>
+    </section>
+    <section title="&quot;With-config-state&quot; Capability">
+      <section title="Overview">
+        <t>
+          The :with-config-state capability indicates whether a server
+          supports the with-config-state functionality. For a server
+          that indicates support for the :with-config-state capability
+          it must support at least the 'all-cfg' option. It may also
+          indicate support for the additional with-config-state
+          retrieval modes.
+        </t>
+      </section>
+      <section title="Dependencies">
+        <t>
+          None
+        </t>
+      </section>
+      <section title="Capability Identifier">
+        <t>
+          urn:ietf:params:netconf:capability:with-config-state:1.0
+        </t>
+        <t>
+          The identifer has a paramater: "also-supported". This
+          parameter indicates which additional enumeration values
+          (besides 'all-cfg') the server will accept for the
+          &lt;with-config-state&gt; parameter in <xref
+          target="Parameter"/>. The value of the parameter is a
+          comma-separated list of one or more modes that are supported.
+          Possible modes are 'intended-cfg-only', 'applied-cfg-only',
+          'diff-cfg-only' as defined in <xref target="Parameter"/>.
+        </t>
+      </section>
+    </section>
+    <section anchor="ModuleLayout" title="Suggested layout of data models">
+      <t>
+        Generally, to ensure that operational data and configuration
+        data can be easily related, this draft recommends that
+        configuration and associated operational nodes either be
+        co-located in the same YANG container, or that operational nodes
+        should be placed as descendants nodes of the configuration nodes
+        on which they are related to.
+      </t>
+      <t>
+        YANG clients should be able to assume that configuration and
+        operational nodes within the same container (and defined in the
+        same namespace) are implicitly related. Likewise any descendant
+        operational nodes are also implicitly related to any parent
+        configuration node.
+      </t>
+      <t>
+        This draft also supports a variant of the "related-state"
+        statement defined in <xref
+        target="I-D.kwatsen-netmod-opstate">Operational State
+        Enhancements for YANG, NETCONF, and RESTCONF.</xref>, but
+        proposes that the statement be called "related-config" instead
+        and that the same logical two-way binding between a config and
+        operational node should be expressed in the reverse direction.
+        I.e. it should be modelled as an extension statement on an
+        operational node which refers back to the configuration node
+        upon which it depends. Expressing the dependency this way round
+        is anticipated to be much easier to use by model authors,
+        avoiding the perceived likely heavy use of augmentation
+        statements that a 'related-state' statement would probably
+        entail.
+      </t>
+    </section>
+    <section anchor="AddressingRequirements" title="Addressing the requirements of the NETMOD Operational State Requirements draft">
+      <t>
+        When reading this section, please refer back to <xref
+        target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State
+        Requirements</xref> for the definition of those requirements.
+        They are not reproduced here.
+      </t>
+      <section title="Addressing requirement 1: 'Ability to interact with both intended and applied configuration'">
+        <t>
+          This requirement (and associated subpoints) are met in the
+          following ways:
+        </t>
+        <t>
+          Requirement 1.A: The applied configuration can be retrieved
+          via making a NETCONF (or management protocol equivalent)
+          &lt;get-config&gt; request with the 'all-cfg' or
+          'applied-cfg-only' option of the &lt;with-config-state&gt;
+          parameter.
+        </t>
+        <t>
+          Requirement 1.B: This would be enforced by the protocol and/or
+          the backing datastore.
+        </t>
+        <t>
+          Requirement 1.C: The schema encoding scheme proposed in this
+          solution trivially meets this requirement.
+        </t>
+        <t>
+          Requirement 1.D: Not directly appicable since this is a
+          requirement on the backend server providing the data rather
+          than the encoding schema.
+        </t>
+        <!-- <t> The proposed solution in this draft provides a way for
+             a NMS to explicitly access both the intended and applied
+             configuration state of configuration nodes. It also
+             provides a convenient way that both the intended and
+             applied configuration values can be returned and easily
+             compared. It also has the following additional benefits:
+             <list> <t> It optionally provides additional information as
+             to why the applied configuration does not match the
+             intended configuration. </t> <t> It does not force the YANG
+             modules to use groupings for configuration data so that it
+             can be mirrored in the operational state. In particular, it
+             places no burden to support an eventual consistency
+             configuration model on YANG modules that do not need to
+             operate in that environment. </t> <t> The
+             &lt;with-config-state&gt; parameter in the extension allows
+             the client to request that only configuration nodes that
+             are not in the intended state are returned. </t> </list>
+             </t> <t> This draft also addresses the issue of allowing a
+             NMS to easily relate configuration and operational state.
+             As should be clear the relationship between cfg-intended
+             and cfg-applied states for a particular node are trivially
+             and efficiently mappable for all YANG configuration nodes.
+             With the exception of interface operational state, that is
+             not addressed by this draft, the relationship between
+             configuration and derived state is acheived through the
+             convention that co-located configuration and operational
+             state be held in the same YANG container. This is
+             semantically similar to the approach in <xref
+             target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational
+             State Requirements</xref> that implicitly binds the
+             contents of the 'config' and 'state' YANG container nodes
+             together if they are rooted to the same parent YANG
+             container. </t> -->
+      </section>
+      <section title="Addressing requirement 2: Support for both synchronous and asynchronous configuration operations">
+        <t>
+          This requirement (and associated subpoints) are met in the
+          following ways:
+        </t>
+        <t>
+          Requirement 2.A: This requirement is not addressed by this
+          draft. It is anticipated that this would be solved by
+          protocols specific extentions, and isn't directly concerned
+          with how applied configuration is represented to management
+          clients.
+        </t>
+        <t>
+          Requirement 2.B: This optional requirement is supported by
+          using either the 'all-cfg' or 'diff-cfg-only' option of the
+          &lt;with-config-state&gt; parameter.
+        </t>
+        <t>
+          Requirement 2.C: This requirement is not addressed by this
+          draft. This requirement depends on the underlying protocol
+          that is being used to configure the system.
+        </t>
+      </section>
+      <section title="Addressing requirement 3: Separation of the applied configuration and derived state aspects of operational state; ability to retreive them independently and together">
+        <t>
+          This requirement (and associated subpoints) are met in the
+          following ways:
+        </t>
+        <t>
+          Requirement 3.A: This requirement is supported via making a
+          NETCONF (or management protocol equivalent) &lt;get-config&gt;
+          request with the 'applied-cfg-only' option of the
+          &lt;with-config-state&gt; parameter.
+        </t>
+        <t>
+          Requirement 3.B: This requirement is not directly supported by
+          this draft. The proposed protocol extension allows for just
+          the intended config vs applied config nodes to be returned.
+          RESTCONF already supports querying config separately from
+          operational state through use of the 'content' query
+          paremeter. A separate NETCONF protocol extension would be
+          required to return just the operational nodes without any of
+          the configuration nodes, such as the &lt;get-state&gt;
+          enhancement described in <xref
+          target="I-D.kwatsen-netmod-opstate">Operational State
+          Enhancements for YANG, NETCONF, and RESTCONF</xref>.
+        </t>
+        <t>
+          Requirement 3.C: This requirement is supported via making a
+          NETCONF (or mgmt protocol equivalent) &lt;get&gt; request with
+          the 'applied-cfg-only' option of the &lt;with-config-state&gt;
+          parameter.
+        </t>
+      </section>
+      <section title="Addressing requirement 4: Ability to relate configuration with its corresponding operational state">
+        <t>
+          This requirement (and associated subpoints) are met in the
+          following ways:
+        </t>
+        <t>
+          Requirement 4.A: This requirement is trivially met using the
+          encoding scheme presented in this draft.
+        </t>
+        <t>
+          Requirement 4.B: This requirement is met using the scheme
+          described in <xref target="ModuleLayout"/>.
+        </t>
+        <t>
+          Requirement 4.C: The solution described in requirement 4.B
+          meets this requirement.
+        </t>
+      </section>
+      <section title="Addressing requirement 5: Ability for distinct modules to leverage a common model-structure">
+        <t>
+          This requirement is not addressed by this draft, it is covered
+          by <xref target="I-D.rtgyangdt-rtgwg-device-model">Network
+          Device YANG Organizational Model</xref>.
+        </t>
+      </section>
+      <section title="Other benefits of the solution proposed in this draft">
+        <t>
+          In additional to the formal requirements expressed as part of
+          the requirements draft, the solution proposed in this draft
+          also meets the desirable property expressed in the original
+          OpenConfig opstate requirements draft of ensuring that there
+          is a separate unique schema path to both the intended and
+          applied configuration nodes.
+        </t>
+      </section>
+      <!--
+          <section title="Addressing requirement 4.1: Applied config as part of operational state">
+          <t>
+          This requirement is met through the use of the separate cfg-intended and cfg-applied implict leaf nodes that are available when using the &lt;with-config-state&gt; extension parameter set to  'intended-cfg-only' or 'applied-cfg-only' with either the NETCONF &lt;get-config&gt; operation or the RESTCONF GET request with the 'content' query parameter set to 'config'.
+          </t>
+          </section>
+          <section title="Addressing requirement 4.2: Support for both transactional, synchronous management systems as well as distributed, asynchronous management systems">
+          <t>
+          Devices that only support a transactional sychronous management system have the choice of either not supporting the &lt;with-config-state&gt; extension, or alternatively may achieve compliance with this extension fairly easily by returning the same value for both cfg-intended and cfg-applied leaf nodes, and always omitting the cfg-status and cfg-status-reason leaves.  Any requests using the path to the cfg-intended and cfg-applied leaves can be mapped back to the base config leaf defined in the YANG data model.  Any explicit requests get or get-config requests for cfg-status and cfg-status-reason can be rejected.
+          </t>
+          <t>
+          Devices that support an asynchronous configuration system would implement support for the extension and provide the cfg-* leaves defined in this draft when requested.
+          </t>
+          </section>
+          <section title="Addressing requirement 4.3: Separation of configuration and operational state data; ability to retrieve them independently">
+          <t>
+          The first point is addressed by the proposed solution.  Config and operational data are already split, and the naming of the cfg-intended vs cfg-applied leaves provides a clear distinction between intended configuration, applied configuration, and derived state.
+          </t>
+          <t>
+          The second point is not fully addressed by this draft. The proposed protocol extension allows for just the intended config vs applied config nodes to be returned.  RESTCONF already supports querying config separately from operational state through use of the 'content' query paremeter. A separate NETCONF protocol extension would be required to return just the operational nodes without any of the configuration nodes, such as the &lt;get-state&gt; enhancement described in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF</xref>.
+          </t>
+          </section>
+          <section title="Addressing requirement 4.4: Ability to retreive operational state corresponding only to derived values, statistics, etc">
+          <t>
+          Not directly addressed by this draft. RESTCONF already supports querying config separately from operational state through use of the 'content' query paremeter. A separate NETCONF protocol extension would be required to return just the operational nodes without any of the configuration nodes, such as the &lt;get-state&gt; enhancement described in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF</xref>.
+          </t>
+          </section>
+          <section title="Addressing requirement 4.5: Consistent schema locations for configuration and corresponding operational state data">
+          <t>
+          Section 4.5 of <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref> indicates that it is desirable to have a well defined path to retrieve the cfg-intended vs cfg-applied values to avoid requiring external context when referencing that information.  This is achieved by allowing paths in the NETCONF and RESTCONF protocols to include one of the cfg-state leaves when using the &lt;with-config-state&gt; extension. E.g. if the path to a particular config leaf was normally /..path-to-leaf../cfg-leaf then the intended config value could be referenced and obtained by using /..path-to-leaf../cfg-leaf/cfg-intended.  The cfg-applied, cfg-status, and cfg-status-reason leaves can all be referenced and accessed in a similar fashion.
+          </t>
+          <t>
+          Containers with presence are not leaf nodes, and hence require slightly differently handling to configuration leaf nodes.  The proposed solution is that containers with presence contain the cfg-intended, cfg-applied, cfg-status, and cfg-status-reason leaf nodes as direct descendants of the container node and hence can be accessed using the same scheme as for config leaves.  E.g. if the path to a particular container with presence was normally /..path-to-p-container../cfg-p-container/ then the intended config value could be referenced and obtained by using /..path-to-p-container../cfg-p-container/cfg-intended.  The cfg-applied, cfg-status, and cfg-status-reason leaves can all be referenced and accessed in a similar fashion.
+          </t>
+          </section>
+      -->
+</section>
+<!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+<?rfc needLines="8" ?>
+<section anchor="Acknowledgements" title="Acknowledgements">
+  <t>
+    The authors wish to thank Andy Bierman, Einar Nilsen-Nygaard, Neil
+    Ketley, Peyman Owladi and Juergen Schoenwaelder for their helpful
+    comments, ideas and expertise contributing to this draft.
+  </t>
+</section>
+<!-- Possibly a 'Contributors' section ... -->
+<section anchor="IANA" title="IANA Considerations">
+  <t>
+    TBD. This document would at least need to register a new capability
+    identifier URN in the 'Network Configuration Protocol (NETCONF)
+    Capability URNs' registry for the with-config-state optional
+    capability.'".
+  </t>
+  <!--      <t>
+       All drafts are required to have an IANA considerations section (see
+       <xref target="I-D.narten-iana-considerations-rfc2434bis">the update of
+       RFC 2434</xref> for a guide). If the draft does not require IANA to do
+       anything, the section contains an explicit statement that this is the
+       case (as above). If there are no requirements for IANA, the section will
+       be removed during conversion into an RFC by the RFC Editor.
+       </t>-->
+</section>
+<section anchor="Security" title="Security Considerations">
+  <t>
+    The proposal in this document does not have any security considerations beyond the existing NETCONF/RESTCONF/YANG security considerations.
+  </t>
+</section>
+</middle>
+<!--  *****BACK MATTER ***** -->
+<back>
+  <!-- References split into informative and normative -->
+  <!-- There are 2 ways to insert reference entries from the citation libraries:
+       1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+       2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+       (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
 
-      </section>--><section title="Change history"><t>The changes from draft version 00 to 01 is to fix a couple of mistakes in the example YANG module.</t><t>The changes from draft version 01 to 02 primarily updates <xref target="AddressingRequirements"/> to reflect the refinements to the requirements specification.  In addition an overview of a YANG Metadata based variant of the original solution is described in <xref target="AlternativeSolution"/>.</t></section><section title="Terminology"><t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-        document are to be interpreted as described in <xref target="RFC2119">RFC 2119</xref>.</t><t>The terms 'intended configuration', 'applied configuration' and 'derived state' are defined in <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref>.</t><t>The following additional terms are used in this document:</t><t><list><t>operational nodes - this term is colloquially used in this draft to refer to "config false" YANG nodes.</t></list></t></section></section><section title="Objectives"><t>The aim of this draft is to provide a partial alternative solution to the requirements set out in <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref>. An explanation of how the specific requirements are addressed is described in <xref target="AddressingRequirements"/>.</t></section><section anchor="Encoding" title="&quot;With-config-state&quot; encoding scheme"><t>The solution proposed in this document makes use of a new encoding scheme that is used to represent YANG configuration nodes in NETCONF and RESTCONF.  An optional parameter, called &lt;with-config-state&gt; and defined below, indicates when this new encoding scheme is used.</t><t>When the with-config-state option is used each YANG configuration leaf in the datastore is returned in a different format.  Rather than being encoded as an XML or JSON leaf element that holds the configured value, it is instead returned as a node element, with the same name as the YANG config leaf, that contains up to four separate leaf elements.  The four leaf elements that the node may contain are 'cfg-intended', 'cfg-applied', 'cfg-status', and 'cfg-status-reason'.  Theses leaves are externally addressable through using the full path of the leaf, providing explicit distinct paths for intended configuration vs applied configuration. These elements are described in more detail in the following sub-sections. Concrete examples of the encoding for NETCONF and RESTCONF requests are given in <xref target="EncodingExamples"/>.</t><section title="cfg-intended"><t>The cfg-intended leaf represents the intended configuration of the device, and is of the same datatype and holds the same value as the normal YANG data model configuration leaf. The cfg-intended leaf is only present if the associated configuration node exists in the YANG data model.</t><t>The cfg-intended leaf is semantically equivalent to the config leaf in the YANG data model that is based on, and hence is logically read/writable.  In particular, when the &lt;with-config-state&gt; parameter is used, management requests to modify the configuration may also use the full path to the cfg-intended leaf. The server semantics for writing to the cfg-intended leaf are exactly the same as for writing to the standard YANG config node path - the flexibility is provided as a convenience to the NMS client.</t></section><section title="cfg-applied"><t> The cfg-applied leaf represents the applied configuration, and is of the same datatype as a normal YANG data model configuration leaf. If there is no configuration currently in effect then the cfg-applied leaf is not present.</t><t>The cfg-applied leaf is read only.</t><t>To give some examples: 
-        <list><t>If the configuration has been successfully applied then the cfg-applied leaf would exactly match the cfg-intended leaf.</t><t>If a new item of configuration is in the process of being applied then the cfg-intended leaf holds the intended configuration value, and the cfg-applied leaf would not be present until the configuration is in effect.</t><t>If an existing item of configuration is in the process of being deleted then the cfg-applied leaf would hold the current configuration value, and the cfg-intended leaf would not be present.  Once the delete operation has completed, the configuration node element itself would logically be deleted.</t><t>If the configuration value of an existing item of configuration is in the process of being changed, then the cfg-intended leaf would hold the new proposed value, and the cfg-applied leaf would hold the existing value that is currently in effect.</t></list></t></section><section title="cfg-status"><t>The cfg-status leaf is used, when required, to indicate why the value of the cfg-applied leaf does not match the value of the cfg-intended leaf.  It is only present when the values of the cfg-intended and cfg-applied leaves do not match.</t><t>The cfg-status leaf is read only.</t><t>The cfg-status leaf can take one of following values:
-     <list><t>in-progress - the config operation is in the process of being applied.</t><t>waiting - the config operation is waiting for other configuration to be applied or hardware to be available before it can be applied. Additional specific information may be provided in the cfg-status-reason leaf.</t><t>failed - the config operation failed to be applied. Additional information may be provided in the cfg-status-reason leaf to indicate the reason for the failure.</t></list></t></section><section title="cfg-status-reason"><t>The cfg-status-reason leaf may be used to provide additional information as to why the value of the cfg-applied leaf does not match the value of the cfg-intended leaf.</t><t>The cfg-status-reason leaf may only be present in the case that the cfg-status leaf is present and is set to either waiting or failed.</t><t>The cfg-status-reason leaf is read only.</t></section><section title="Non-leaf config nodes"><t>Non-leaf config nodes require some special handling.  In particular, containers with presence and list elements must be considered.</t><t>The proposed solution for both types of node is the same. The cfg-intended, cfg-applied, cfg-status, and cfg-status-reason leaf nodes are implicitly added as direct descendants of the presence-container or list element.</t><t>Note: There is an open issue that using these leaves directly opens up a potential naming clash between the "cfg-*" names above and existing explicitly defined child nodes in the YANG module definition. There are a few possible ways that this might be addressed:
-     <list><t>Making the four "cfg-*" leaves reserved names. I.e. to ensure that they are not used in general YANG modules.</t><t>By inserting an implicit node between all child nodes under the container or list element.  This would automatically ensure that there can be no naming clash between the defined YANG nodes and the implicitly added "cfg-*" leaves.</t><t>By using a reserved namespace for the "cfg-*" leaves to ensure that they cannot clash with any explicitly defined in the YANG module.</t></list></t></section></section><section anchor="Parameter" title="Retrieval of intended and applied configuration"><t>To make use of the new encoding scheme defined above, this document defines a new parameter, called &lt;with-config-state&gt;, which can be added to specific NETCONF operation request messages, or as a RESTCONF query parameter, to control how retrieval of configuration nodes is treated by the server.</t><t>The &lt;with-config-state&gt; parameter is supported for the following NETCONF operations: &lt;get&gt;, &lt;get-config&gt;, &lt;edit-config&gt;, &lt;delete-config&gt;.</t><t>The &lt;with-config-state&gt; query parameter is supported for the following RESTCONF operations: GET, PUT, POST, PATCH, DELETE.</t><t>Use of the &lt;with-config-state&gt; parameter ensures that all config nodes are always returned using the defined encoding.  It also allows servers to explicitly reference the cfg-* leaves in requests and updates.</t><t>A server that implements this specification MUST accept the &lt;with-config-state&gt; parameter containing the enumeration for any of the with-config-state modes it supports.  The &lt;with-config-state&gt; parameter contains one of the four enumerated values defined in this section.</t><section title="all-cfg"><t>When data is retrieved with a &lt;with-config-state&gt; parameter equal to 'all-cfg', all 'cfg-*' nodes are reported using the encoding scheme defined in <xref target="Encoding"/>.</t></section><section title="intended-cfg-only"><t>When data is retrieved with a &lt;with-config-state&gt; parameter equal to 'intended-cfg', only the 'cfg-intended' leaves are reported using the encoding scheme defined in <xref target="Encoding"/>.  All other 'cfg-*' leaves are omitted.</t></section><section title="applied-cfg-only"><t>When data is retrieved with a &lt;with-config-state&gt; parameter equal to 'applied-cfg-only', only the 'cfg-applied' leaves are reported using the encoding scheme defined in <xref target="Encoding"/>.  All other 'cfg-*' leaves are omitted.</t></section><section title="diff-cfg-only"><t>When data is retrieved with a &lt;with-config-state&gt; parameter equal to 'diff-cfg-only', config nodes are only returned if the value of the cfg-intended leaf does not match the value of the cfg-applied leaf.  If the config node is returned then all appropriate 'cfg-*' leaves are returned as per the encoding scheme defined in <xref target="Encoding"/>.</t></section></section><section title="&quot;With-config-state&quot; Capability"><section title="Overview"><t>The :with-config-state capability indicates whether a server supports the with-config-state functionality.  For a server that indicates support for the :with-config-state capability it must support at least the 'all-cfg' option.  It may also indicate support for the additional with-config-state retrieval modes.</t></section><section title="Dependencies"><t>None</t></section><section title="Capability Identifier"><t>urn:ietf:params:netconf:capability:with-config-state:1.0</t><t>The identifer has a paramater: "also-supported".  This parameter indicates which additional enumeration values (besides 'all-cfg') the server will accept for the &lt;with-config-state&gt; parameter in <xref target="Parameter"/>. The value of the parameter is a comma-separated list of one or more modes that are supported.  Possible modes are 'intended-cfg-only', 'applied-cfg-only', 'diff-cfg-only' as defined in <xref target="Parameter"/>.</t></section></section><section anchor="ModuleLayout" title="Suggested layout of data models"><t>Generally, to ensure that operational data and configuration data can be easily related, this draft recommends that configuration and associated operational nodes either be co-located in the same YANG container, or that operational nodes should be placed as descendants nodes of the configuration nodes on which they are related to.</t><t>YANG clients should be able to assume that configuration and operational nodes within the same container (and defined in the same namespace) are implicitly related.  Likewise any descendant operational nodes are also implicitly related to any parent configuration node.</t><t>This draft also supports a variant of the "related-state" statement defined in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF.</xref>, but proposes that the statement be called "related-config" instead and that the same logical two-way binding between a config and operational node should be expressed in the reverse direction.  I.e. it should be modelled as an extension statement on an operational node which refers back to the configuration node upon which it depends.  Expressing the dependency this way round is anticipated to be much easier to use by model authors, avoiding the perceived likely heavy use of augmentation statements that a 'related-state' statement would probably entail.</t></section><section anchor="AddressingRequirements" title="Addressing the requirements of the NETMOD Operational State Requirements draft"><t>When reading this section, please refer back to <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref> for the definition of those requirements.  They are not reproduced here.</t><section title="Addressing requirement 1: 'Ability to interact with both intended and applied configuration'"><t>This requirement (and associated subpoints) are met in the following ways:</t><t>Requirement 1.A: The applied configuration can be retrieved via making a NETCONF (or management protocol equivalent) &lt;get-config&gt; request with the 'all-cfg' or 'applied-cfg-only' option of the &lt;with-config-state&gt; parameter.</t><t>Requirement 1.B: This would be enforced by the protocol and/or the backing datastore.</t><t>Requirement 1.C: The schema encoding scheme proposed in this solution trivially meets this requirement.</t><t>Requirement 1.D: Not directly appicable since this is a requirement on the backend server providing the data rather than the encoding schema.</t><!--   <t>The proposed solution in this draft provides a way for a NMS to explicitly access both the intended and applied configuration state of configuration nodes.  It also provides a convenient way that both the intended and applied configuration values can be returned and easily compared.  It also has the following additional benefits:
-     <list><t>It optionally provides additional information as to why the applied configuration does not match the intended configuration.</t><t>It does not force the YANG modules to use groupings for configuration data so that it can be mirrored in the operational state.  In particular, it places no burden to support an eventual consistency configuration model on YANG modules that do not need to operate in that environment.</t><t>The &lt;with-config-state&gt; parameter in the extension allows the client to request that only configuration nodes that are not in the intended state are returned.</t></list></t>
-     <t>This draft also addresses the issue of allowing a NMS to easily relate configuration and operational state.  As should be clear the relationship between cfg-intended and cfg-applied states for a particular node are trivially and efficiently mappable for all YANG configuration nodes.  With the exception of interface operational state, that is not addressed by this draft, the relationship between configuration and derived state is acheived through the convention that co-located configuration and operational state be held in the same YANG container.  This is semantically similar to the approach in <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref> that implicitly binds the contents of the 'config' and 'state' YANG container nodes together if they are rooted to the same parent YANG container.</t>  --></section><section title="Addressing requirement 2: Support for both synchronous and asynchronous configuration operations"><t>This requirement (and associated subpoints) are met in the following ways:</t><t>Requirement 2.A: This requirement is not addressed by this draft.  It is anticipated that this would be solved by protocols specific extentions, and isn't directly concerned with how applied configuration is represented to management clients.</t><t>Requirement 2.B: This optional requirement is supported by using either the 'all-cfg' or 'diff-cfg-only' option of the &lt;with-config-state&gt; parameter.</t><t>Requirement 2.C: This requirement is not addressed by this draft.  This requirement depends on the underlying protocol that is being used to configure the system.</t></section><section title="Addressing requirement 3: Separation of the applied configuration and derived state aspects of operational state; ability to retreive them independently and together"><t>This requirement (and associated subpoints) are met in the following ways:</t><t>Requirement 3.A: This requirement is supported via making a NETCONF (or management protocol equivalent) &lt;get-config&gt; request with the 'applied-cfg-only' option of the &lt;with-config-state&gt; parameter.</t><t>Requirement 3.B: This requirement is not directly supported by this draft. The proposed protocol extension allows for just the intended config vs applied config nodes to be returned.  RESTCONF already supports querying config separately from operational state through use of the 'content' query paremeter. A separate NETCONF protocol extension would be required to return just the operational nodes without any of the configuration nodes, such as the &lt;get-state&gt; enhancement described in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF</xref>.</t><t>Requirement 3.C: This requirement is supported via making a NETCONF (or mgmt protocol equivalent) &lt;get&gt; request with the 'applied-cfg-only' option of the &lt;with-config-state&gt; parameter.</t></section><section title="Addressing requirement 4: Ability to relate configuration with its corresponding operational state"><t>This requirement (and associated subpoints) are met in the following ways:</t><t>Requirement 4.A: This requirement is trivially met using the encoding scheme presented in this draft.</t><t>Requirement 4.B: This requirement is met using the scheme described in <xref target="ModuleLayout"/>.</t><t>Requirement 4.C: The solution described in requirement 4.B meets this requirement.</t></section><section title="Addressing requirement 5: Ability for distinct modules to leverage a common model-structure"><t>This requirement is not addressed by this draft, it is covered by <xref target="I-D.rtgyangdt-rtgwg-device-model">Network Device YANG Organizational Model</xref>.</t></section><section title="Other benefits of the solution proposed in this draft"><t>In additional to the formal requirements expressed as part of the requirements draft, the solution proposed in this draft also meets the desirable property expressed in the original OpenConfig opstate requirements draft of ensuring that there is a separate unique schema path to both the intended and applied configuration nodes.</t></section><!--
-     <section title="Addressing requirement 4.1: Applied config as part of operational state">
-     <t>This requirement is met through the use of the separate cfg-intended and cfg-applied implict leaf nodes that are available when using the &lt;with-config-state&gt; extension parameter set to  'intended-cfg-only' or 'applied-cfg-only' with either the NETCONF &lt;get-config&gt; operation or the RESTCONF GET request with the 'content' query parameter set to 'config'.</t>
-     </section>
-     <section title="Addressing requirement 4.2: Support for both transactional, synchronous management systems as well as distributed, asynchronous management systems">
-     <t>Devices that only support a transactional sychronous management system have the choice of either not supporting the &lt;with-config-state&gt; extension, or alternatively may achieve compliance with this extension fairly easily by returning the same value for both cfg-intended and cfg-applied leaf nodes, and always omitting the cfg-status and cfg-status-reason leaves.  Any requests using the path to the cfg-intended and cfg-applied leaves can be mapped back to the base config leaf defined in the YANG data model.  Any explicit requests get or get-config requests for cfg-status and cfg-status-reason can be rejected.</t>
-     <t>Devices that support an asynchronous configuration system would implement support for the extension and provide the cfg-* leaves defined in this draft when requested.</t>
-     </section>
-     <section title="Addressing requirement 4.3: Separation of configuration and operational state data; ability to retrieve them independently">
-        <t>The first point is addressed by the proposed solution.  Config and operational data are already split, and the naming of the cfg-intended vs cfg-applied leaves provides a clear distinction between intended configuration, applied configuration, and derived state. </t>
-        <t>The second point is not fully addressed by this draft. The proposed protocol extension allows for just the intended config vs applied config nodes to be returned.  RESTCONF already supports querying config separately from operational state through use of the 'content' query paremeter. A separate NETCONF protocol extension would be required to return just the operational nodes without any of the configuration nodes, such as the &lt;get-state&gt; enhancement described in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF</xref>.</t>
-        </section>
-        <section title="Addressing requirement 4.4: Ability to retreive operational state corresponding only to derived values, statistics, etc">
-        <t>Not directly addressed by this draft. RESTCONF already supports querying config separately from operational state through use of the 'content' query paremeter. A separate NETCONF protocol extension would be required to return just the operational nodes without any of the configuration nodes, such as the &lt;get-state&gt; enhancement described in <xref target="I-D.kwatsen-netmod-opstate">Operational State Enhancements for YANG, NETCONF, and RESTCONF</xref>.</t>
-        </section>
-        <section title="Addressing requirement 4.5: Consistent schema locations for configuration and corresponding operational state data">
-        <t>Section 4.5 of <xref target="I-D.ietf-netmod-opstate-reqs">NETMOD Operational State Requirements</xref> indicates that it is desirable to have a well defined path to retrieve the cfg-intended vs cfg-applied values to avoid requiring external context when referencing that information.  This is achieved by allowing paths in the NETCONF and RESTCONF protocols to include one of the cfg-state leaves when using the &lt;with-config-state&gt; extension. E.g. if the path to a particular config leaf was normally /..path-to-leaf../cfg-leaf then the intended config value could be referenced and obtained by using /..path-to-leaf../cfg-leaf/cfg-intended.  The cfg-applied, cfg-status, and cfg-status-reason leaves can all be referenced and accessed in a similar fashion.</t>
-        <t>Containers with presence are not leaf nodes, and hence require slightly differently handling to configuration leaf nodes.  The proposed solution is that containers with presence contain the cfg-intended, cfg-applied, cfg-status, and cfg-status-reason leaf nodes as direct descendants of the container node and hence can be accessed using the same scheme as for config leaves.  E.g. if the path to a particular container with presence was normally /..path-to-p-container../cfg-p-container/ then the intended config value could be referenced and obtained by using /..path-to-p-container../cfg-p-container/cfg-intended.  The cfg-applied, cfg-status, and cfg-status-reason leaves can all be referenced and accessed in a similar fashion.</t>
-        </section>
-        --></section><!-- This PI places the pagebreak correctly (before the section title) in the text output. --><?rfc needLines="8" ?><section anchor="Acknowledgements" title="Acknowledgements"><t>The authors wish to thank Andy Bierman, Einar Nilsen-Nygaard, Neil Ketley, Peyman Owladi and Juergen Schoenwaelder for their helpful comments, ideas and expertise contributing to this draft.</t></section><!-- Possibly a 'Contributors' section ... --><section anchor="IANA" title="IANA Considerations"><t>TBD.  This document would at least need to register a new capability identifier URN in the 'Network Configuration Protocol (NETCONF) Capability URNs' registry for the with-config-state optional capability.'".</t><!--      <t>All drafts are required to have an IANA considerations section (see
-        <xref target="I-D.narten-iana-considerations-rfc2434bis">the update of
-        RFC 2434</xref> for a guide). If the draft does not require IANA to do
-        anything, the section contains an explicit statement that this is the
-      case (as above). If there are no requirements for IANA, the section will
-      be removed during conversion into an RFC by the RFC Editor.</t>--></section><section anchor="Security" title="Security Considerations"><t>The proposal in this document does not have any security considerations beyond the existing NETCONF/RESTCONF/YANG security considerations.</t></section></middle><!--  *****BACK MATTER ***** --><back><!-- References split into informative and normative --><!-- There are 2 ways to insert reference entries from the citation libraries:
-     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
-     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
-        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+Both are cited textually in the same manner: by using xref elements.
+If you use the PI option, xml2rfc will, by default, try to find included files in the same
+directory as the including file. You can also define the XML_LIBRARY environment variable
+with a value containing a set of directories to search.  These can be either in the local
+filing system or remote ones accessed by http (http://domain/dir/... ).-->
+  <references title="Normative References">
+    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->&RFC6020;&RFC2119;&RFC6241;&RFC6243;<!-- TODO Add RESTCONF + Others here -->
+    <?rfc include="reference.I-D.ietf-netmod-opstate-reqs.xml"?>
+    <?rfc include="reference.I-D.ietf-netconf-restconf.xml"?>
+    <!--      <reference anchor="min_ref">
+         <!- - the following is the minimum to make xml2rfc happy - ->
 
-     Both are cited textually in the same manner: by using xref elements.
-     If you use the PI option, xml2rfc will, by default, try to find included files in the same
-     directory as the including file. You can also define the XML_LIBRARY environment variable
-     with a value containing a set of directories to search.  These can be either in the local
-     filing system or remote ones accessed by http (http://domain/dir/... ).--><references title="Normative References"><!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->&RFC6020;&RFC2119;&RFC6241;&RFC6243;<!-- TODO Add RESTCONF + Others here --><?rfc include="reference.I-D.ietf-netmod-opstate-reqs.xml"?><?rfc include="reference.I-D.ietf-netconf-restconf.xml"?><!--      <reference anchor="min_ref">
-        <!- - the following is the minimum to make xml2rfc happy - ->
+<front>
+<title>Minimal Reference</title>
 
-        <front>
-          <title>Minimal Reference</title>
+<author initials="authInitials" surname="authSurName">
+<organization>
+</organization>
+</author>
 
-          <author initials="authInitials" surname="authSurName">
-            <organization></organization>
-          </author>
+<date year="2006" />
+</front>
+</reference>-->
+  </references>
+  <references title="Informative References">
+    <!-- Here we use entities that we defined at the beginning. -->
+    <!-- &RFC2629;
+         &RFC3552;
+         &RFC6241;
+         &RFC6243; -->
+    <?rfc include="reference.I-D.kwatsen-netmod-opstate.xml"?>
+    <?rfc include="reference.I-D.ietf-netmod-yang-metadata.xml"?>
+    <?rfc include="reference.I-D.rtgyangdt-rtgwg-device-model.xml"?>
+    <!--&I-D.narten-iana-considerations-rfc2434bis;-->
+    <!-- A reference written by by an organization not a person. -->
+    <!--      <reference anchor="DOMINATION"
+         target="http://www.example.com/dominator.html">
+         <front>
+         <title>Ultimate Plan for Taking Over the World</title>
 
-          <date year="2006" />
-        </front>
-      </reference>--></references><references title="Informative References"><!-- Here we use entities that we defined at the beginning. --><!-- &RFC2629;
-      &RFC3552; 
-      &RFC6241;
-      &RFC6243; --><?rfc include="reference.I-D.kwatsen-netmod-opstate.xml"?><?rfc include="reference.I-D.ietf-netmod-yang-metadata.xml"?><?rfc include="reference.I-D.rtgyangdt-rtgwg-device-model.xml"?><!--&I-D.narten-iana-considerations-rfc2434bis;--><!-- A reference written by by an organization not a person. --><!--      <reference anchor="DOMINATION"
-                 target="http://www.example.com/dominator.html">
-        <front>
-          <title>Ultimate Plan for Taking Over the World</title>
+<author>
+<organization>Mad Dominators, Inc.</organization>
+</author>
 
-          <author>
-            <organization>Mad Dominators, Inc.</organization>
-          </author>
-
-          <date year="1984" />
-        </front>
-      </reference>--></references><!--    <section anchor="app-additional" title="Additional Stuff">
-      <t>This becomes an Appendix.</t>
-    </section>--><!-- Change Log
+<date year="1984" />
+</front>
+</reference>-->
+  </references>
+  <!--    <section anchor="app-additional" title="Additional Stuff">
+       <t>
+       This becomes an Appendix.
+       </t>
+       </section>-->
+  <!-- Change Log
 
 v00 2015-03-02  RGW   Initial version
-                      --><section anchor="EncodingExamples" title="Encoding examples for NETCONF and RESTCONF"><t>A sample encoding of the &lt;with-config-state&gt; enhancement is described below.</t><t>A simple example module is provided to illustrate the subsequent examples. This is not a real module, and is not intended for any real use.</t><figure><artwork><![CDATA[
+  -->
+  <section anchor="EncodingExamples" title="Encoding examples for NETCONF and RESTCONF">
+    <t>
+      A sample encoding of the &lt;with-config-state&gt; enhancement is described below.
+    </t>
+    <t>
+      A simple example module is provided to illustrate the subsequent
+      examples. This is not a real module, and is not intended for any
+      real use.
+    </t>
+    <figure>
+      <artwork>
+        <![CDATA[
 module example-interfaces {
 
   namespace "http://example.com/ns/interfaces";
@@ -158,8 +832,22 @@ module example-interfaces {
       }
     }
   }
-}
-]]></artwork></figure><section anchor="NetconfGetExample" title="NETCONF get-config request using with-config-state with all-cfg option"><t>A get-config request is made for the interfaces subtree using the &lt;with-config-state&gt; enhancement and 'all-cfg' option that returns all config nodes with explicit cfg-intended and cfg-applied leaves, and cfg-status and cfg-status-reason leaves when appropriate.</t><t>In this example, at the time of processing the get-config request, the NETCONF server is also asynchronously processing a request to set the MTU leaf to 9000 for 4 interface config nodes.</t><figure><artwork><![CDATA[
+}]]>
+      </artwork>
+    </figure>
+    <section anchor="NetconfGetExample" title="NETCONF get-config request using with-config-state with all-cfg option">
+      <t>
+        A get-config request is made for the interfaces subtree using
+        the &lt;with-config-state&gt; enhancement and 'all-cfg' option
+        that returns all config nodes with explicit cfg-intended and
+        cfg-applied leaves, and cfg-status and cfg-status-reason leaves
+        when appropriate.
+      </t>
+      <t>In this example, at the time of processing the get-config
+        request, the NETCONF server is also asynchronously processing a
+        request to set the MTU leaf to 9000 for 4 interface config
+        nodes.</t><figure> <artwork>
+        <![CDATA[
 <rpc message-id="101"
      xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <get-config>
@@ -171,9 +859,28 @@ module example-interfaces {
       all-cfg
     </with-config-state>
   </get>
-</rpc>
-]]></artwork></figure><t>The response indicates that at the time of the reply:
-<list><t>The request to set the MTU leaf on eth0/0 to 9000 has completed.</t><t>The request to change the MTU leaf on eth0/1 from 2000 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth0/2 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth1/0 to 9000 is blocked because the necessary hardware is not present.</t></list></t><figure><artwork><![CDATA[
+</rpc>]]>
+      </artwork>
+    </figure>
+    <t>
+      The response indicates that at the time
+      of the reply:
+      <list>
+        <t>
+          The request to set the MTU leaf on eth0/0 to 9000 has
+          completed.</t> <t>The request to change the MTU leaf on eth0/1
+          from 2000 to 9000 is in progress.</t> <t>The request to set
+          the MTU leaf on eth0/2 to 9000 is in progress.
+        </t>
+        <t>
+          The request to set the MTU leaf on eth1/0 to 9000 is blocked
+          because the necessary hardware is not present.
+        </t>
+      </list>
+    </t>
+    <figure>
+      <artwork>
+        <![CDATA[
 <rpc-reply message-id="101"
            xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <data>
@@ -235,8 +942,27 @@ module example-interfaces {
       </interface>
     </interfaces>
   </data>
-</rpc-reply>
-]]></artwork></figure></section><section title="NETCONF get-config request using with-config-state with diff-cfg-only option"><t>A get-config request is made for the interfaces subtree using the &lt;with-config-state&gt; enhancement and 'diff-cfg-only' option that only returns nodes where the cfg-intended node does not match the cfg-applied node.  Appropriate parent nodes are also returned.</t><t>As per the previous examples, at the time of processing the get-config request, the NETCONF server is also asynchronously processing a request to set the MTU leaf to 9000 for 4 interface config nodes.</t><figure><artwork><![CDATA[
+</rpc-reply>]]>
+        </artwork>
+      </figure>
+    </section>
+    <section title="NETCONF get-config request using with-config-state with diff-cfg-only option">
+      <t>
+        A get-config request is made for the interfaces subtree using
+        the &lt;with-config-state&gt; enhancement and 'diff-cfg-only'
+        option that only returns nodes where the cfg-intended node does
+        not match the cfg-applied node. Appropriate parent nodes are
+        also returned.
+      </t>
+      <t>
+        As per the previous examples, at the time of processing the
+        get-config request, the NETCONF server is also asynchronously
+        processing a request to set the MTU leaf to 9000 for 4 interface
+        config nodes.
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 <rpc message-id="102"
      xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <get-config>
@@ -248,9 +974,30 @@ module example-interfaces {
       diff-cfg-only
     </with-config-state>
   </get>
-</rpc>
-]]></artwork></figure><t>The response indicates that the outstanding configuration requests still to be processed are:
-<list><t>The request to change the MTU leaf on eth0/1 from 2000 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth0/2 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth1/0 to 9000 is blocked because the necessary hardware is not present.</t></list></t><figure><artwork><![CDATA[
+</rpc>]]>
+        </artwork>
+      </figure>
+      <t>
+        The response indicates that the outstanding configuration
+        requests still to be processed are:
+        <list>
+          <t>
+            The request to change the MTU leaf on eth0/1 from 2000 to
+            9000 is in progress.
+          </t>
+          <t>
+            The request to set the MTU leaf on eth0/2 to 9000 is in
+            progress.
+          </t>
+          <t>
+            The request to set the MTU leaf on eth1/0 to 9000 is blocked
+            because the necessary hardware is not present.
+          </t>
+        </list>
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 <rpc-reply message-id="102"
            xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <data>
@@ -300,8 +1047,25 @@ module example-interfaces {
       </interface>
     </interfaces>
   </data>
-</rpc-reply>
-]]></artwork></figure></section><section title="NETCONF get-config request using with-config-state with applied-cfg-only option"><t>A get-config request is made for the interfaces subtree using the &lt;with-config-state&gt; enhancement and 'applied-cfg-only' option that only returns the currently applied configuration.</t><t>As per the previous examples, At the time of processing the get-config request, the NETCONF server is also asynchronously processing a request to set the MTU leaf to 9000 for 4 interface config nodes.</t><figure><artwork><![CDATA[
+</rpc-reply>]]>
+        </artwork>
+      </figure>
+    </section>
+    <section title="NETCONF get-config request using with-config-state with applied-cfg-only option">
+      <t>
+        A get-config request is made for the interfaces subtree using
+        the &lt;with-config-state&gt; enhancement and 'applied-cfg-only'
+        option that only returns the currently applied configuration.
+      </t>
+      <t>
+        As per the previous examples, At the time of processing the
+        get-config request, the NETCONF server is also asynchronously
+        processing a request to set the MTU leaf to 9000 for 4 interface
+        config nodes.
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 <rpc message-id="103"
      xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <get-config>
@@ -313,9 +1077,31 @@ module example-interfaces {
       applied-cfg-only
     </with-config-state>
   </get>
-</rpc>
-]]></artwork></figure><t>The response indicates that the current applied configuration of the selected nodes is:
-<list><t>The MTU leaf of eth0/0 is 9000.</t><t>The MTU leaf of eth0/1 is 2000.</t><t>Eth0/2 has no MTU leaf applied.</t><t>[Implicitly - there is no applied configuration for Eth1/0 since the hardware is not present.]</t></list></t><figure><artwork><![CDATA[
+</rpc>]]>
+        </artwork>
+      </figure>
+      <t>
+        The response indicates that the current applied configuration of
+        the selected nodes is:
+        <list>
+          <t>
+            The MTU leaf of eth0/0 is 9000.
+          </t>
+          <t>
+            The MTU leaf of eth0/1 is 2000.
+          </t>
+          <t>
+            Eth0/2 has no MTU leaf applied.
+          </t>
+          <t>
+            [Implicitly - there is no applied configuration for Eth1/0
+            since the hardware is not present.]
+          </t>
+        </list>
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 <rpc-reply message-id="103"
            xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <data>
@@ -346,14 +1132,62 @@ module example-interfaces {
       </interface>
     </interfaces>
   </data>
-</rpc-reply>
-]]></artwork></figure></section><section title="RESTCONF GET request using with-config-state with all-cfg option (JSON)"><t> An equivalent RESTCONF/JSON example to <xref target="NetconfGetExample"/> is provided to illustrate the equivalent JSON encoding.</t><t>A REST GET request is made for all config data using the &lt;with-config-state&gt; enhancement and 'all-cfg' option that all returns all config nodes with explicit cfg-intended and cfg-applied leaves.</t><t>In this example, at the time of processing the GET request, the RESTCONF server is also asynchronously processing a request to set the MTU leaf to 9000 for 4 interface config nodes.</t><figure><artwork><![CDATA[
+</rpc-reply>]]>
+        </artwork>
+      </figure>
+    </section>
+    <section title="RESTCONF GET request using with-config-state with all-cfg option (JSON)">
+      <t>
+        An equivalent RESTCONF/JSON example to <xref
+        target="NetconfGetExample"/> is provided to illustrate the
+        equivalent JSON encoding.
+      </t>
+      <t>
+        A REST GET request is made for all config data using the
+        &lt;with-config-state&gt; enhancement and 'all-cfg' option that
+        all returns all config nodes with explicit cfg-intended and
+        cfg-applied leaves.
+      </t>
+      <t>
+        In this example, at the time of processing the GET request, the
+        RESTCONF server is also asynchronously processing a request to
+        set the MTU leaf to 9000 for 4 interface config nodes.
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 GET /restconf/data/example-events:events?content=config&with-config-state=all-cfg
   HTTP/1.1
 Host: example.com
 Accept: application/yang.data+json
-]]></artwork></figure><t>As per <xref target="NetconfGetExample"/>, the response indicates that at the time of the reply:
-<list><t>The request to set the MTU leaf on eth0/0 to 9000 has completed.</t><t>The request to change the MTU leaf on eth0/1 from 2000 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth0/2 to 9000 is in progress.</t><t>The request to set the MTU leaf on eth1/0 to 9000 is blocked because the necessary hardware is not present.</t></list></t><figure><artwork><![CDATA[
+]]>
+        </artwork>
+      </figure>
+      <t>
+        As per <xref target="NetconfGetExample"/>, the response
+        indicates that at the time of the reply:
+        <list>
+          <t>
+            The request to set the MTU leaf on eth0/0 to 9000 has
+            completed.
+          </t>
+          <t>
+            The request to change the MTU leaf on eth0/1 from 2000 to
+            9000 is in progress.
+          </t>
+          <t>
+            The request to set the MTU leaf on eth0/2 to 9000 is in
+            progress.
+          </t>
+          <t>
+            The request to set the MTU leaf on eth1/0 to 9000 is blocked
+            because the necessary hardware is not present.
+          </t>
+        </list>
+      </t>
+      <figure>
+        <artwork>
+          <![CDATA[
 HTTP/1.1 200 OK
 Date: Mon, 1 Apr 2015 04:01:00 GMT
 Server: example-server
@@ -414,7 +1248,111 @@ Content-Type: application/yang.data+json
     },
   },
 ]
-}
-]]></artwork></figure></section></section><section anchor="AlternativeSolution" title="Alternative meta-data solution using attributes"><t>In addition to the solution written up in the draft, a variant of it has been proposed on the NETMOD WG email alias.  The variant, proposed by Andy Bierman, is to broadly encode the 'cfg-intended' vs 'cfg-applied' meta-data using <xref target="I-D.ietf-netmod-yang-metadata">Defining and Using Metadata with YANG</xref>.</t><t>Using YANG Metadata certainly has the allure of a cleaner representation of the applied configuration state, particularly when using XML as the encoding where XML attributes can be used to represent the meta-data.  This cleaner representation doesn't directly apply to JSON or any other encodings that don't natively support attributes.</t><section title="Rough solution outline"><t>To aid discussion, an outline of a possible YANG Metadata based solution follows.  Broadly, the solution is similar to the one that has been described in the main body of this draft, and the encoding proposed below would only be used when the client opt in to receive them via an appropriate protocol extension.</t><t>Five YANG metadata attribute are defined:
-   <list><t>cfg-changing: this attribute has three values ('creating', 'changing', 'deleting') and is only present for configuration nodes that are changing state.</t><t>old-value: this attribute holds the currently applied leaf value only for the cases that the cfg-changing attribute has the value 'changing' or 'deleting'.  This option is not used for the 'applied-cfg' protocol option described subsequently.</t><t>new-value: this attribute holds the intended leaf value only for the cases that the cfg-changing attribute has the value 'creating' or 'changing' and it is only used in conjunction with the 'applied-cfg' protocol option described subsequently.</t><t>cfg-status: this attribute holds either the value 'waiting' or 'failed'. It is only used in the case that a configuration change could not be completed for some reason.</t><t>failure-reason: this attribute holds a string containing a system provided error message as to why applying the configuration failed.  It is only used if the cfg-status reason is 'failed'.</t></list></t><t>Each of the five YANG metadata attributes above are only used when requried.  In particular if a configuration leaf is both intended and applied then no extra YANG metdata attributes are required at all.</t><t>The same four protocol options defined previously in the main body of this draft are also supported.
-     <list><t>all-cfg: if this option is used then all config nodes are included if they are either intended or applied.  The value returned for the config leaf is always the intended value, unless the leaf is being deleted in which case it has no value.</t><t>intended-cfg: this option indicates that only the intended configuration nodes are returned.  I.e. it excludes any leaves that are applied, but currently in the process of being deleted (and hence have no intended value)</t><t>applied-cfg: this option indicates that only the applied configuration nodes are returned.  I.e. it excludes any leaves that are intended, but not yet applied. In contrast to the other three options, the value returned for the config leaves are the applied configuration values rather than the intended configuration values provided in all other cases.</t><t>diff-cfg: this only includes config nodes that are changing state.  I.e. the cfg-changing attribute will be set on all leaves that are returned.</t></list></t></section></section></back></rfc>
+}]]>
+        </artwork>
+      </figure>
+    </section>
+  </section>
+  <section anchor="AlternativeSolution" title="Alternative meta-data solution using attributes">
+    <t>
+      In addition to the solution written up in the draft, a variant of
+      it has been proposed on the NETMOD WG email alias. The variant,
+      proposed by Andy Bierman, is to broadly encode the 'cfg-intended'
+      vs 'cfg-applied' meta-data using <xref
+      target="I-D.ietf-netmod-yang-metadata">Defining and Using Metadata
+      with YANG</xref>.
+    </t>
+    <t>
+      Using YANG Metadata certainly has the allure of a cleaner
+      representation of the applied configuration state, particularly
+      when using XML as the encoding where XML attributes can be used to
+      represent the meta-data. This cleaner representation doesn't
+      directly apply to JSON or any other encodings that don't natively
+      support attributes.
+    </t>
+    <section title="Rough solution outline">
+      <t>
+        To aid discussion, an outline of a possible YANG Metadata based
+        solution follows. Broadly, the solution is similar to the one
+        that has been described in the main body of this draft, and the
+        encoding proposed below would only be used when the client opt
+        in to receive them via an appropriate protocol extension.
+      </t>
+      <t>
+        Five YANG metadata attribute are defined:
+        <list>
+          <t>
+            cfg-changing: this attribute has three values ('creating',
+            'changing', 'deleting') and is only present for
+            configuration nodes that are changing state.
+          </t>
+          <t>
+            old-value: this attribute holds the currently applied leaf
+            value only for the cases that the cfg-changing attribute has
+            the value 'changing' or 'deleting'. This option is not used
+            for the 'applied-cfg' protocol option described
+            subsequently.
+          </t>
+          <t>
+            new-value: this attribute holds the intended leaf value only
+            for the cases that the cfg-changing attribute has the value
+            'creating' or 'changing' and it is only used in conjunction
+            with the 'applied-cfg' protocol option described
+            subsequently.
+          </t>
+          <t>
+            cfg-status: this attribute holds either the value 'waiting'
+            or 'failed'. It is only used in the case that a
+            configuration change could not be completed for some reason.
+          </t>
+          <t>
+            failure-reason: this attribute holds a string containing a
+            system provided error message as to why applying the
+            configuration failed. It is only used if the cfg-status
+            reason is 'failed'.
+          </t>
+        </list>
+      </t>
+      <t>
+        Each of the five YANG metadata attributes above are only used
+        when requried. In particular if a configuration leaf is both
+        intended and applied then no extra YANG metdata attributes are
+        required at all.
+      </t>
+      <t>
+        The same four protocol options defined previously in the main
+        body of this draft are also supported.
+        <list>
+          <t>
+            all-cfg: if this option is used then all config nodes are
+            included if they are either intended or applied. The value
+            returned for the config leaf is always the intended value,
+            unless the leaf is being deleted in which case it has no
+            value.
+          </t>
+          <t>
+            intended-cfg: this option indicates that only the intended
+            configuration nodes are returned. I.e. it excludes any
+            leaves that are applied, but currently in the process of
+            being deleted (and hence have no intended value)
+          </t>
+          <t>
+            applied-cfg: this option indicates that only the applied
+            configuration nodes are returned. I.e. it excludes any
+            leaves that are intended, but not yet applied. In contrast
+            to the other three options, the value returned for the
+            config leaves are the applied configuration values rather
+            than the intended configuration values provided in all other
+            cases.
+          </t>
+          <t>
+            diff-cfg: this only includes config nodes that are changing
+            state. I.e. the cfg-changing attribute will be set on all
+            leaves that are returned.
+          </t>
+        </list>
+      </t>
+    </section>
+  </section>
+</back>
+</rfc>
