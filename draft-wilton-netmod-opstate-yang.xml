@@ -127,14 +127,14 @@ please see http://xml.resource.org/authoring/README.html. -->
         applied configuration.
       </t>
       <t>
-        Instead, the solution proposed here is a method for generating
-        an enhanced schema based on any YANG model that is optionally
-        used by network management protocols. This enhanced schema
-        includes up to four data leaves for each configuration node
-        defined in the YANG model. These cover both the intended and
-        applied values, along with an additional reason code and message
-        if the applied configuration does not match the intended
-        configuration.
+        Instead, the solution proposed here is a method for augmenting
+        an existing model using a well defined method in order to
+        provide the additional required operational state.
+        This augmentation adds a sibling node containing up to 3 data
+        leaves for each configuration node defined in the YANG model.
+        These new leaves present the applied value state, along with an
+        additional reason code and message if the applied configuration
+        does not match the intended configuration.
       </t>
       <!-- allows configuration nodes to be returned using a different
            format such that both the intended and applied values may be
@@ -159,6 +159,13 @@ please see http://xml.resource.org/authoring/README.html. -->
           refinements to the requirements specification. In addition an
           overview of a YANG Metadata based variant of the original
           solution is described in <xref target="AlternativeSolution"/>.
+        </t>
+        <t>
+          The changes from draft version 02 to 03 changed the method of
+          model modification so that the newly derived model remains
+          compatible with the original model. That is, rather than
+          generating a new incompatible model the changes can be viewed
+          as a backward compatible augmentation.
         </t>
       </section>
       <section title="Terminology">
@@ -199,27 +206,27 @@ please see http://xml.resource.org/authoring/README.html. -->
     </section>
     <section anchor="Encoding" title="&quot;With-config-state&quot; encoding scheme">
       <t>
-        The solution proposed in this document makes use of a new
-        encoding scheme that is used to represent YANG configuration
-        nodes in NETCONF and RESTCONF. An optional parameter, called
-        &lt;with-config-state&gt; and defined below, indicates when this
-        new encoding scheme is used.
+        The solution proposed in this document makes use of a augmented
+        encoding scheme that is used to represent YANG
+        configuration nodes in NETCONF and RESTCONF. An optional
+        parameter, called &lt;with-config-state&gt; and defined below,
+        indicates when this new encoding scheme is used.
       </t>
       <t>
-        When the with-config-state option is used each YANG
-        configuration leaf in the datastore is returned in a different
-        format. Rather than being encoded as an XML or JSON leaf element
-        that holds the configured value, it is instead returned as a
-        node element, with the same name as the YANG config leaf, that
-        contains up to four separate leaf elements. The four leaf
-        elements that the node may contain are 'cfg-intended',
-        'cfg-applied', 'cfg-status', and 'cfg-status-reason'. Theses
-        leaves are externally addressable through using the full path of
-        the leaf, providing explicit distinct paths for intended
-        configuration vs applied configuration. These elements are
-        described in more detail in the following sub-sections. Concrete
-        examples of the encoding for NETCONF and RESTCONF requests are
-        given in <xref target="EncodingExamples"/>.
+        When the with-config-state option is used an additional sibling
+        operational state node is returned for each YANG configuration
+        leaf in the datastore. The name of the sibling node derives from
+        the configuration leaf name having "-opstate" appended. Thus if
+        the configuration leaf name is "key" then the sibling node name is
+        "key-opstate".
+      </t>
+      <t>
+        The new sibling "-opstate" node may contain up to three leaf
+        elements. These three leaf elements are named 'applied',
+        'status', and 'status-reason', and are described in more detail
+        in the following sub-sections. Concrete examples of the encoding
+        for NETCONF and RESTCONF requests are given in <xref
+        target="EncodingExamples"/>.
       </t>
       <section title="cfg-intended">
         <t>
@@ -391,8 +398,8 @@ please see http://xml.resource.org/authoring/README.html. -->
       <t>
         Use of the &lt;with-config-state&gt; parameter ensures that all
         config nodes are always returned using the defined encoding. It
-        also allows servers to explicitly reference the cfg-* leaves in
-        requests and updates.
+        also allows servers to explicitly reference the opstate
+        contained leaves in requests and updates.
       </t>
       <t>
         A server that implements this specification MUST accept the
@@ -401,38 +408,29 @@ please see http://xml.resource.org/authoring/README.html. -->
         &lt;with-config-state&gt; parameter contains one of the four
         enumerated values defined in this section.
       </t>
-      <section title="all-cfg">
+      <section title="all">
         <t>
           When data is retrieved with a &lt;with-config-state&gt;
           parameter equal to 'all-cfg', all 'cfg-*' nodes are reported
           using the encoding scheme defined in <xref
-          target="Encoding"/>.
+          target="Encoding"/>. This is the default if no parameter is
+          given as well.
         </t>
       </section>
-      <section title="intended-cfg-only">
+      <section title="with-diff">
         <t>
           When data is retrieved with a &lt;with-config-state&gt;
-          parameter equal to 'intended-cfg', only the 'cfg-intended'
-          leaves are reported using the encoding scheme defined in <xref
-          target="Encoding"/>. All other 'cfg-*' leaves are omitted.
+          parameter equal to diff', the 'opstate' nodes
+          are returned only if the applied config differs from the
+          intended config.
         </t>
       </section>
-      <section title="applied-cfg-only">
+      <section title="diff-only">
         <t>
           When data is retrieved with a &lt;with-config-state&gt;
-          parameter equal to 'applied-cfg-only', only the 'cfg-applied'
-          leaves are reported using the encoding scheme defined in <xref
-          target="Encoding"/>. All other 'cfg-*' leaves are omitted.
-        </t>
-      </section>
-      <section title="diff-cfg-only">
-        <t>
-          When data is retrieved with a &lt;with-config-state&gt;
-          parameter equal to 'diff-cfg-only', config nodes are only
-          returned if the value of the cfg-intended leaf does not match
-          the value of the cfg-applied leaf. If the config node is
-          returned then all appropriate 'cfg-*' leaves are returned as
-          per the encoding scheme defined in <xref target="Encoding"/>.
+          parameter equal to diff', the original intended and 'opstate'
+          nodes are returned only if the applied config differs from the
+          intended config.
         </t>
       </section>
     </section>
@@ -463,8 +461,8 @@ please see http://xml.resource.org/authoring/README.html. -->
           &lt;with-config-state&gt; parameter in <xref
           target="Parameter"/>. The value of the parameter is a
           comma-separated list of one or more modes that are supported.
-          Possible modes are 'intended-cfg-only', 'applied-cfg-only',
-          'diff-cfg-only' as defined in <xref target="Parameter"/>.
+          Possible modes are 'with-diff', 'diff-only',
+          as defined in <xref target="Parameter"/>.
         </t>
       </section>
     </section>
